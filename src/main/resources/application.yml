@@ -2,7 +2,7 @@ spring:
   application:
     name: auth-service
   datasource:
-    url: jdbc:postgresql://localhost:3307/covvee
+    url: jdbc:postgresql://localhost:3307/smartShop
     password: 123
     username: postgres
   jpa:

@@ -3,16 +3,39 @@ package com.smartshop.mapper;
 import com.smartshop.dto.user.CreateUserDto;
 import com.smartshop.dto.user.LogInDTO;
 import com.smartshop.entity.User;
-import org.mapstruct.Mapper;
-import org.mapstruct.factory.Mappers;
+import org.springframework.stereotype.Component;
 
-@Mapper
-public interface UserMapper {
-    UserMapper INSTANCE = Mappers.getMapper(UserMapper.class);
+@Component
+public class UserMapper {
 
-    User toEntity(LogInDTO dto);
+    public User toEntity(LogInDTO dto) {
+        if (dto == null) {
+            return null;
+        }
+        User user = new User();
+        user.setUserName(dto.getUsername());
+        user.setPassword(dto.getPassword());
+        return user;
+    }
 
-    User toEntity(CreateUserDto dto);
+    public User toEntity(CreateUserDto dto) {
+        if (dto == null) {
+            return null;
+        }
+        User user = new User();
+        user.setUserName(dto.getUsername());
+        user.setPassword(dto.getPassword());
 
-    LogInDTO toDto(User user);
+        return user;
+    }
+
+    public LogInDTO toDto(User user) {
+        if (user == null) {
+            return null;
+        }
+        LogInDTO dto = new LogInDTO();
+        dto.setUsername(user.getUserName());
+        dto.setPassword(user.getPassword());
+        return dto;
+    }
 }
