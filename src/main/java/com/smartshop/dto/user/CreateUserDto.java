@@ -13,9 +13,9 @@ import lombok.*;
 public class CreateUserDto {
     @NotEmpty(message = "username should not be empty")
     @NotBlank(message = "username should not be blank")
-    private String Username;
+    private String username;
     @NotEmpty(message = "password should not be empty")
     @NotBlank(message = "password should not be blank")
     private String password;
-    private Role role;
+    private Role role = Role.CLIENT;
 }
