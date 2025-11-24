@@ -34,7 +34,7 @@ public class AuthController {
     @PostMapping("create")
     public ResponseEntity<?> createUser(@Valid @RequestBody CreateUserDto dto,HttpServletRequest request) {
         User user= userService.create(dto);
-        
+
         HttpSession session = request.getSession(true);
 
         session.setAttribute("user", user.getId());
