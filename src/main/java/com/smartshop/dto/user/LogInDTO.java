@@ -12,7 +12,7 @@ import lombok.*;
 public class LogInDTO {
     @NotEmpty(message = "username should not be empty")
     @NotBlank(message = "username should not be blank")
-    private String Username;
+    private String username;
     @NotEmpty(message = "password should not be empty")
     @NotBlank(message = "password should not be blank")
     private String password;
