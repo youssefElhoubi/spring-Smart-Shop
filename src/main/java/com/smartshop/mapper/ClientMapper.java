@@ -47,7 +47,7 @@ public class ClientMapper {
         if (client == null || user == null) {
             return;
         }
-        
+
         client.setId(user.getId());
 
 
