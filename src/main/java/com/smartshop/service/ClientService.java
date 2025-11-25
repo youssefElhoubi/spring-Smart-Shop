@@ -6,6 +6,7 @@ import com.smartshop.dto.client.CreateClientDTO;
 import com.smartshop.entity.Client;
 import com.smartshop.entity.User;
 import com.smartshop.exeptions.BusinessRuleViolationException;
+import com.smartshop.exeptions.ResourceNotFoundException;
 import com.smartshop.mapper.ClientMapper;
 import com.smartshop.repository.ClientRepository;
 import com.smartshop.repository.UserRepository;
@@ -27,7 +28,7 @@ public class ClientService {
 
     public ClientResponseDTO createClient(CreateClientDTO dto) throws BusinessRuleViolationException {
         User user = userRepository.findById(dto.getUserId()).orElseThrow(() -> {
-            new BusinessRuleViolationException("user does not exist");
+            new ResourceNotFoundException("user does not exist");
             return null;
         });
 
@@ -41,7 +42,7 @@ public class ClientService {
 
     public ClientResponseDTO updateClient(ClientUpdateDTO dto, Long id) {
         Client client = clientRepository.findById(id).orElseThrow(() -> {
-            new BusinessRuleViolationException("client was not found");
+            new ResourceNotFoundException("client was not found");
             return null;
         });
         client.setName(dto.getName());
@@ -54,7 +55,7 @@ public class ClientService {
 
     public ClientResponseDTO findById(Long id) {
         Client client = clientRepository.findById(id).orElseThrow(() -> {
-            new BusinessRuleViolationException("client was not found");
+            new ResourceNotFoundException("client was not found");
             return null;
         });
 

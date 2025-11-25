@@ -2,6 +2,7 @@ package com.smartshop.config;
 
 import com.smartshop.dto.ErrorResponseDTO;
 import com.smartshop.exeptions.BusinessRuleViolationException;
+import com.smartshop.exeptions.ResourceNotFoundException;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -11,6 +12,7 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.web.client.ResourceAccessException;
 
 import java.time.LocalDateTime;
 import java.util.HashMap;
@@ -23,7 +25,6 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<ErrorResponseDTO> handleValidationExceptions(MethodArgumentNotValidException ex, HttpServletRequest request) {
-        // Collects all validation error messages (e.g., "username should not be empty")
         String message = ex.getBindingResult().getFieldErrors().stream()
                 .map(error -> error.getField() + ": " + error.getDefaultMessage())
                 .collect(Collectors.joining("; "));
@@ -41,6 +42,18 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(BusinessRuleViolationException.class)
     public ResponseEntity<ErrorResponseDTO> handleBusinessRuleViolation(BusinessRuleViolationException ex, HttpServletRequest request) {
+        return new ResponseEntity<>(
+                buildErrorResponse(
+                        HttpStatus.UNPROCESSABLE_ENTITY, // 422 Status
+                        "Business Rule Violation",
+                        ex.getMessage(),
+                        request.getRequestURI()
+                ),
+                HttpStatus.UNPROCESSABLE_ENTITY // 422
+        );
+    }
+    @ExceptionHandler(ResourceAccessException.class)
+    public ResponseEntity<ErrorResponseDTO>handleResourceAccessException(ResourceNotFoundException ex,HttpServletRequest request){
         return new ResponseEntity<>(
                 buildErrorResponse(
                         HttpStatus.UNPROCESSABLE_ENTITY, // 422 Status
