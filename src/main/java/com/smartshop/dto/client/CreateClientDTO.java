@@ -3,6 +3,7 @@ package com.smartshop.dto.client;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
 import lombok.*;
 
 @Data
@@ -10,11 +11,11 @@ import lombok.*;
 @AllArgsConstructor
 public class CreateClientDTO {
 
-    // Must link to an existing User entity (authentication details)
     @NotNull(message = "User ID must be provided to link client profile.")
-    private Long userId; // Renamed from 'user' to 'userId' for clarity
+    private Long userId;
 
     @NotBlank(message = "Client name cannot be empty.")
+    @Size(min = 3, max = 100, message = "Client name must be between 3 and 100 characters.")
     private String name;
 
     @NotBlank(message = "Email address is required.")

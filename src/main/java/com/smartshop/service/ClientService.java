@@ -1,6 +1,7 @@
 package com.smartshop.service;
 
 import com.smartshop.dto.client.ClientResponseDTO;
+import com.smartshop.dto.client.ClientUpdateDTO;
 import com.smartshop.dto.client.CreateClientDTO;
 import com.smartshop.entity.Client;
 import com.smartshop.entity.User;
@@ -35,4 +36,27 @@ public class ClientService {
 
         return clientMapper.toResponseDTO(client);
     }
+
+    public ClientResponseDTO updateClient(ClientUpdateDTO dto, Long id) {
+        Client client = clientRepository.findById(id).orElseThrow(() -> {
+            new BusinessRuleViolationException("client was not found");
+            return null;
+        });
+        client.setName(dto.getName());
+        client.setEmail(dto.getEmail());
+
+        client = clientRepository.save(client);
+
+        return clientMapper.toResponseDTO(client);
+    }
+
+    public ClientResponseDTO findById(Long id) {
+        Client client = clientRepository.findById(id).orElseThrow(() -> {
+            new BusinessRuleViolationException("client was not found");
+            return null;
+        });
+
+        return clientMapper.toResponseDTO(client);
+    }
+
 }
