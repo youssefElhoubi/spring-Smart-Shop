@@ -38,4 +38,19 @@ public class ProductService {
         Product savedProduct = productRepository.save(newProduct);
         return productMapper.toResponseDTO(savedProduct);
     }
+
+    public ProductResponseDTO update(Long id, ProductRequestDTO dto) {
+        Product existingProduct = productRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Product cannot be updated. ID not found: " + id));
+        productMapper.updateEntityFromDTO(dto, existingProduct);
+        Product updatedProduct = productRepository.save(existingProduct);
+        return productMapper.toResponseDTO(updatedProduct);
+    }
+    
+    public void softDelete(Long id) {
+        Product product = productRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Product cannot be deleted. ID not found: " + id));
+        product.setDeleted(true);
+        productRepository.save(product);
+    }
 }
