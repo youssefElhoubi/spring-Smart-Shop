@@ -11,6 +11,8 @@ import com.smartshop.repository.ClientRepository;
 import com.smartshop.repository.UserRepository;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class ClientService {
     private final ClientRepository clientRepository;
@@ -57,6 +59,11 @@ public class ClientService {
         });
 
         return clientMapper.toResponseDTO(client);
+    }
+
+    public List<ClientResponseDTO> listClients(){
+        List<Client> clients = clientRepository.findAll();
+        return clients.stream().map(clientMapper::toResponseDTO).toList();
     }
 
 }
