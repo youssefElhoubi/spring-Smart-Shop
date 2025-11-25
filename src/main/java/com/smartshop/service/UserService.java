@@ -4,6 +4,7 @@ import com.smartshop.config.PasswordUtil;
 import com.smartshop.dto.user.CreateUserDto;
 import com.smartshop.dto.user.LogInDTO;
 import com.smartshop.entity.User;
+import com.smartshop.exeptions.BusinessRuleViolationException;
 import com.smartshop.mapper.UserMapper;
 import com.smartshop.repository.UserRepository;
 import org.springframework.stereotype.Service;
@@ -23,7 +24,7 @@ public class UserService {
     public User create(CreateUserDto dto) {
         User user = userRepository.findByUserName(dto.getUsername());
         if (user != null) {
-            throw new RuntimeException("user already exist");
+            throw new BusinessRuleViolationException("user already exist");
         }
         user = userMapper.toEntity(dto);
         user.setPassword(passwordUtil.passwordHash(dto.getPassword()));
@@ -34,10 +35,10 @@ public class UserService {
     public User LogIn(LogInDTO dto) {
         User user = userRepository.findByUserName(dto.getUsername());
         if (user == null) {
-            throw new RuntimeException("username or password is not correct");
+            throw new BusinessRuleViolationException("username or password is not correct");
         }
         if (!passwordUtil.checkPassword(dto.getPassword(), user.getPassword())) {
-            throw new RuntimeException("username or password is not correct");
+            throw new BusinessRuleViolationException("username or password is not correct");
         }
         return user;
     }
