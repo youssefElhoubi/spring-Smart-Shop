@@ -1,10 +1,7 @@
 package com.smartshop.entity;
 
 import com.smartshop.enums.OrderStatus;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
+import jakarta.persistence.*;
 import lombok.*;
 
 import java.time.LocalDate;
@@ -17,6 +14,7 @@ import java.time.LocalDate;
 @Builder
 public class Order {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @ManyToOne
     @JoinColumn(name = "client_id", nullable = false)
