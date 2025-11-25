@@ -4,15 +4,9 @@ import com.smartshop.dto.client.CreateClientDTO;
 import com.smartshop.dto.client.ClientResponseDTO;
 import com.smartshop.entity.Client;
 import com.smartshop.entity.User;
-import com.smartshop.enums.CustomerTier; // Need this import
 
 import org.springframework.stereotype.Component;
-import java.util.Optional; // Need this import for safe handling
 
-/**
- * Manual implementation of the Client Mapper.
- * This ensures Spring finds the component and bypasses MapStruct build issues.
- */
 @Component
 public class ClientMapper {
 
