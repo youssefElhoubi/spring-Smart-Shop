@@ -24,6 +24,4 @@ public class OrderItem {
     private Integer quantity;
     private Double unitPriceAtSale;
     private Double lineTotalHT;
-
-
 }
