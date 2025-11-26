@@ -3,6 +3,7 @@ package com.smartshop.service;
 import com.smartshop.component.EntityValidator;
 import com.smartshop.dto.order.OrderRequestDTO;
 import com.smartshop.dto.order.OrderResponseDTO;
+import com.smartshop.dto.order.OrderUpdateDTO;
 import com.smartshop.entity.Client;
 import com.smartshop.entity.Order;
 import com.smartshop.entity.OrderItem;
@@ -104,5 +105,15 @@ public class OrderService {
         order = orderRepository.save(order);
 
         return orderMapper.toResponseDTO(order);
+    }
+
+    public OrderResponseDTO updateOrder(OrderUpdateDTO dto, Long id) {
+        Order order = orderRepository.findById(id).orElseThrow(() -> {
+            throw new ResourceNotFoundException("order with id " + id + "was not found ");
+        });
+        order.setStatus(dto.getStatus());
+        orderRepository.save(order);
+        return orderMapper.toResponseDTO(order);
+
     }
 }
