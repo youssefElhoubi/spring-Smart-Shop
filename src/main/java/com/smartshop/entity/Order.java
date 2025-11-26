@@ -22,7 +22,7 @@ public class Order {
     private LocalDate date;
     private Double subTotal;
     private Double discountAmount;
-    private Double tax;
+    private Double tax = 20D;
     private Double total;
     private OrderStatus status;
     private Double remainingAmount;

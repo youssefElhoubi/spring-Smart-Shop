@@ -13,14 +13,6 @@ import java.time.LocalDate;
 @Component
 public class OrderMapper {
 
-    // --- 1. Mapping for Creation (DTO -> Entity) ---
-    /**
-     * Maps the incoming request data to a new Order entity.
-     * Note: Financial fields are initialized/defaulted, they are calculated in the Service.
-     * @param client The Client entity linked to the order.
-     * @param dto The request DTO.
-     * @return A partially initialized Order entity.
-     */
     public Order toNewEntity(Client client, OrderRequestDTO dto) {
         if (client == null || dto == null) {
             return null;

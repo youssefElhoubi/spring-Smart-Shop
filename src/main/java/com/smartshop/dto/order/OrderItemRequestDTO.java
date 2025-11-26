@@ -7,6 +7,8 @@ import lombok.*;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
+@Getter
+@Setter
 public class OrderItemRequestDTO {
 
     @NotNull(message = "Product ID is required for each line item.")
