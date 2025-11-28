@@ -1,6 +1,7 @@
 package com.smartshop.controller;
 
 import com.smartshop.dto.client.ClientResponseDTO;
+import com.smartshop.dto.client.ClientUpdateDTO;
 import com.smartshop.dto.client.CreateClientDTO;
 import com.smartshop.service.ClientService;
 import jakarta.validation.Valid;
@@ -33,4 +34,10 @@ public class ClientController {
         ClientResponseDTO response = clientService.findById(id);
         return ResponseEntity.ok(response);
     }
+    @PatchMapping("/id")
+    public ResponseEntity<ClientResponseDTO> update(@PathVariable Long id, @Valid ClientUpdateDTO request){
+        ClientResponseDTO response = clientService.updateClient(request,id);
+        return ResponseEntity.ok(response);
+    }
+
 }

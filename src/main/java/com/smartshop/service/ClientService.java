@@ -72,7 +72,7 @@ public class ClientService {
         }
         response.setTotalOrders(orders.toArray().length);
         Double totalSpent = orders.stream()
-                .mapToDouble(Order::getTotal) // Converts to primitive double
+                .mapToDouble(Order::getTotal)
                 .sum();
         response.setTotalSpent(totalSpent);
 
