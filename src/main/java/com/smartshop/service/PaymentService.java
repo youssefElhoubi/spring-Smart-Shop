@@ -43,7 +43,7 @@ public class PaymentService {
         order.setRemainingAmount(order.getRemainingAmount() - payment.getAmount());
         if (order.getRemainingAmount() == 0) {
             order.setStatus(OrderStatus.CONFIRMED);
-            payment.setPaymentStatus(PaymentStatus.ENCAISSE);
+            payment.setPaymentStatus(PaymentStatus.COMPLETE);
         }
         orderRepository.save(order);
         paymentRepository.save(payment);
@@ -63,8 +63,12 @@ public class PaymentService {
         if (order.getRemainingAmount() - dto.getAmount() < 0) {
             throw new BusinessRuleViolationException("payment amount exceeds the order remains  ");
         }
-        payment.setAmount(payment.getAmount()+ dto.getAmount());
-        order.setRemainingAmount(order.getRemainingAmount()- dto.getAmount() );
+        payment.setAmount(payment.getAmount() + dto.getAmount());
+        order.setRemainingAmount(order.getRemainingAmount() - dto.getAmount());
+        if (order.getRemainingAmount() == 0) {
+            order.setStatus(OrderStatus.CONFIRMED);
+            payment.setPaymentStatus(PaymentStatus.COMPLETE);
+        }
         orderRepository.save(order);
         paymentRepository.save(payment);
 
