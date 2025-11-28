@@ -83,7 +83,7 @@ public class ClientService {
         List<Client> clients = clientRepository.findAll();
         return clients.stream().map(clientMapper::toResponseDTO).toList();
     }
-    
+
     public void delete(Long id) {
         Client client = clientRepository.findById(id).orElseThrow(() -> {
             throw  new ResourceNotFoundException("client was not found");
