@@ -20,24 +20,33 @@ public class ClientController {
     }
 
     @GetMapping("List")
-    public ResponseEntity<List<ClientResponseDTO>> listClient(){
+    public ResponseEntity<List<ClientResponseDTO>> listClient() {
         List<ClientResponseDTO> clients = clientService.listClients();
         return ResponseEntity.ok(clients);
     }
+
     @PostMapping("/create")
-    public ResponseEntity<ClientResponseDTO> createClient(@Valid @RequestBody CreateClientDTO request){
+    public ResponseEntity<ClientResponseDTO> createClient(@Valid @RequestBody CreateClientDTO request) {
         ClientResponseDTO response = clientService.createClient(request);
         return ResponseEntity.ok(response);
     }
+
     @GetMapping("/{id}")
-    public ResponseEntity<ClientResponseDTO> info(@PathVariable Long id){
+    public ResponseEntity<ClientResponseDTO> info(@PathVariable Long id) {
         ClientResponseDTO response = clientService.findById(id);
         return ResponseEntity.ok(response);
     }
+
     @PatchMapping("/id")
-    public ResponseEntity<ClientResponseDTO> update(@PathVariable Long id, @Valid ClientUpdateDTO request){
-        ClientResponseDTO response = clientService.updateClient(request,id);
+    public ResponseEntity<ClientResponseDTO> update(@PathVariable Long id, @Valid ClientUpdateDTO request) {
+        ClientResponseDTO response = clientService.updateClient(request, id);
         return ResponseEntity.ok(response);
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<String> delete(@PathVariable Long id) {
+        clientService.delete(id);
+        return ResponseEntity.ok("client with ID " + id + "was deleted");
     }
 
 }
