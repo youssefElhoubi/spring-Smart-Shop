@@ -30,6 +30,7 @@ public class PaymentMapper {
 
         Payment payment = new Payment();
         payment.setMethod(requestDTO.getMethod());
+        payment.setAmount(requestDTO.getAmount());
 
         return payment;
     }

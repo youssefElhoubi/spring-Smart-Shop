@@ -19,5 +19,4 @@ public class PaymentUpdateDTO {
     @PastOrPresent(message = "Payment date cannot be in the future")
     private LocalDate paymentDate;
 
-    private PaymentStatus paymentStatus;
 }

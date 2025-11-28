@@ -1,6 +1,7 @@
 package com.smartshop.entity;
 
 import com.smartshop.enums.PaymentMethod;
+import com.smartshop.enums.PaymentStatus;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
@@ -25,5 +26,6 @@ public class Payment {
     private Order order;
     private Double amount;
     private PaymentMethod method;
+    private PaymentStatus paymentStatus = PaymentStatus.EN_ATTENTE;
     private LocalDate paymentDate;
 }
