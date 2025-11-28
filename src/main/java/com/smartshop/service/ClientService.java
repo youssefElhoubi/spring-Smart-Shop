@@ -68,7 +68,13 @@ public class ClientService {
         if (orders.isEmpty()){
             response.setTotalOrders(0);
             response.setTotalSpent(0D);
+            return response;
         }
+        response.setTotalOrders(orders.toArray().length);
+        Double totalSpent = orders.stream()
+                .mapToDouble(Order::getTotal) // Converts to primitive double
+                .sum();
+        response.setTotalSpent(totalSpent);
 
         return response;
     }
