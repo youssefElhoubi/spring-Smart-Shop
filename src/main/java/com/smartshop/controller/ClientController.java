@@ -1,11 +1,11 @@
 package com.smartshop.controller;
 
 import com.smartshop.dto.client.ClientResponseDTO;
+import com.smartshop.dto.client.CreateClientDTO;
 import com.smartshop.service.ClientService;
+import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -22,5 +22,10 @@ public class ClientController {
     public ResponseEntity<List<ClientResponseDTO>> listClient(){
         List<ClientResponseDTO> clients = clientService.listClients();
         return ResponseEntity.ok(clients);
+    }
+    @PostMapping("/create")
+    public ResponseEntity<ClientResponseDTO> createClient(@Valid @RequestBody CreateClientDTO request){
+        ClientResponseDTO response = clientService.createClient(request);
+        return ResponseEntity.ok(response);
     }
 }
