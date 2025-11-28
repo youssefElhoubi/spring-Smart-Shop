@@ -28,4 +28,9 @@ public class ClientController {
         ClientResponseDTO response = clientService.createClient(request);
         return ResponseEntity.ok(response);
     }
+    @GetMapping("/{id}")
+    public ResponseEntity<ClientResponseDTO> info(@PathVariable Long id){
+        ClientResponseDTO response = clientService.findById(id);
+        return ResponseEntity.ok(response);
+    }
 }

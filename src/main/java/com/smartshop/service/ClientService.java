@@ -69,6 +69,7 @@ public class ClientService {
             response.setTotalOrders(0);
             response.setTotalSpent(0D);
         }
+
         return response;
     }
 
