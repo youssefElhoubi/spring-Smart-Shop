@@ -37,7 +37,7 @@ public class ClientController {
         return ResponseEntity.ok(response);
     }
 
-    @PatchMapping("/id")
+    @PatchMapping("/{id}")
     public ResponseEntity<ClientResponseDTO> update(@PathVariable Long id, @Valid ClientUpdateDTO request) {
         ClientResponseDTO response = clientService.updateClient(request, id);
         return ResponseEntity.ok(response);

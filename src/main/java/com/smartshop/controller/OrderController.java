@@ -8,6 +8,8 @@ import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("api/order")
 public class OrderController {
@@ -27,5 +29,9 @@ public class OrderController {
     public ResponseEntity<OrderResponseDTO> update(@RequestBody @Valid OrderUpdateDTO dto, @PathVariable Long id) {
         OrderResponseDTO response = orderService.updateOrder(dto,id);
         return ResponseEntity.ok(response);
+    }
+    @GetMapping()
+    public ResponseEntity<List<OrderResponseDTO>> all(){
+        return ResponseEntity.ok(orderService.all());
     }
 }

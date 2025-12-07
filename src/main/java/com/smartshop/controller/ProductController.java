@@ -37,7 +37,7 @@ public class ProductController {
         return ResponseEntity.ok(responseDTO);
     }
     @DeleteMapping("/{id}")
-    public ResponseEntity<String> DeleteProduct(@PathVariable Long id){
+    public ResponseEntity<String> deleteProduct(@PathVariable Long id){
         productService.softDelete(id);
         return ResponseEntity.ok("product deleted ");
 

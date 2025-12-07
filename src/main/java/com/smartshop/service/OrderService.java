@@ -116,4 +116,14 @@ public class OrderService {
         return orderMapper.toResponseDTO(order);
 
     }
+    public OrderResponseDTO findById( Long id){
+        Order order = orderRepository.findById(id).orElseThrow(() -> {
+            throw new ResourceNotFoundException("order with id " + id + "was not found ");
+        });
+        return orderMapper.toResponseDTO(order);
+    }
+    public List<OrderResponseDTO> all(){
+        List<Order> orders = orderRepository.findAll();
+        return orders.stream().map(orderMapper::toResponseDTO).toList();
+    }
 }

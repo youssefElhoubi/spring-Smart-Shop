@@ -3,7 +3,6 @@ package com.smartshop.config;
 import com.smartshop.entity.User;
 import com.smartshop.enums.Role;
 import com.smartshop.repository.UserRepository;
-import com.smartshop.service.UserService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
@@ -12,7 +11,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.HandlerInterceptor;
 
 @Component
-public class AdminInterceptor implements HandlerInterceptor {
+public class LoginInterceptor implements HandlerInterceptor {
     @Autowired
     private UserRepository userRepository;
 
@@ -27,11 +26,6 @@ public class AdminInterceptor implements HandlerInterceptor {
         User user = userRepository.findById(id).orElseThrow(() -> {
             throw new RuntimeException("something is wrong ");
         });
-        if (user.getRole() != Role.ADMIN) {
-            response.sendError(403, "you are not authorized to access this rout ");
-            return false;
-        }
-
         return true;
     }
 }
