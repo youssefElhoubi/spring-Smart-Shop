@@ -25,14 +25,14 @@ public class ProductController {
         return ResponseEntity.ok(responseDTO);
     }
 
-    @GetMapping()
+    @GetMapping("/all")
     public ResponseEntity<List<ProductResponseDTO>> all(){
         List<ProductResponseDTO> products = productService.findAllActive();
         return ResponseEntity.ok(products);
     }
 
     @PostMapping()
-    public ResponseEntity<ProductResponseDTO> create(@Valid ProductRequestDTO dto){
+    public ResponseEntity<ProductResponseDTO> create(@Valid @RequestBody ProductRequestDTO dto){
         ProductResponseDTO responseDTO = productService.create(dto);
         return ResponseEntity.ok(responseDTO);
     }
