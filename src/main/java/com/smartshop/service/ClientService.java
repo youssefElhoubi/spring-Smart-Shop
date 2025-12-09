@@ -59,18 +59,17 @@ public class ClientService {
 
     public ClientResponseDTO findById(Long id) {
         Client client = clientRepository.findById(id).orElseThrow(() -> {
-            new ResourceNotFoundException("client was not found");
-            return null;
+            throw new ResourceNotFoundException("client was not found");
         });
         ClientResponseDTO response =clientMapper.toResponseDTO(client);
 
-        List<Order> orders = orderRepository.getOrdersByClient_Id(client.getId());
+        List<Order> orders = orderRepository.findOrderByClient_Id(client.getId());
         if (orders.isEmpty()){
             response.setTotalOrders(0);
             response.setTotalSpent(0D);
             return response;
         }
-        response.setTotalOrders(orders.toArray().length);
+        response.setTotalOrders(orders.size());
         Double totalSpent = orders.stream()
                 .mapToDouble(Order::getTotal)
                 .sum();

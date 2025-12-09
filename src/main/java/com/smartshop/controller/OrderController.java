@@ -34,4 +34,15 @@ public class OrderController {
     public ResponseEntity<List<OrderResponseDTO>> all(){
         return ResponseEntity.ok(orderService.all());
     }
+
+    @PatchMapping("/{id}/cancel")
+    public ResponseEntity<OrderResponseDTO> cancel(@PathVariable Long id){
+        OrderResponseDTO response = orderService.cancelOrder(id);
+        return ResponseEntity.ok(response);
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<OrderResponseDTO> orderDetails(@PathVariable Long id){
+        return ResponseEntity.ok(orderService.findById(id));
+    }
 }

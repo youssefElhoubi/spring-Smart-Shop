@@ -19,7 +19,7 @@ public class ClientController {
         this.clientService = clientService;
     }
 
-    @GetMapping("List")
+    @GetMapping("list")
     public ResponseEntity<List<ClientResponseDTO>> listClient() {
         List<ClientResponseDTO> clients = clientService.listClients();
         return ResponseEntity.ok(clients);

@@ -9,6 +9,7 @@ import com.smartshop.entity.Order;
 import com.smartshop.entity.OrderItem;
 import com.smartshop.entity.Product;
 import com.smartshop.enums.CustomerTier;
+import com.smartshop.enums.OrderStatus;
 import com.smartshop.enums.Role;
 import com.smartshop.exeptions.BusinessRuleViolationException;
 import com.smartshop.exeptions.ResourceNotFoundException;
@@ -126,4 +127,13 @@ public class OrderService {
         List<Order> orders = orderRepository.findAll();
         return orders.stream().map(orderMapper::toResponseDTO).toList();
     }
+    public OrderResponseDTO cancelOrder(Long id){
+        Order order = orderRepository.findById(id).orElseThrow(() -> {
+            throw new ResourceNotFoundException("order with id " + id + "was not found ");
+        });
+        order.setStatus(OrderStatus.CANCELED);
+        orderRepository.save(order);
+        return orderMapper.toResponseDTO(order);
+    }
+
 }
